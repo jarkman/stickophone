@@ -17,8 +17,8 @@ float targetY = 0;
 
 boolean stopAtEnd = true;
 
-float maxSpeed = 0.600; // mm / millisec - 0.600 is good
-float acceleration = 0.004; // mm / millisec / millisec - 0.002 keeps the current rig pretty calm, 0.004 starts to be wobbly
+float maxSpeed = 0.050; // mm / millisec - 0.600 is good
+float acceleration = 0.001; // mm / millisec / millisec - 0.002 keeps the current rig pretty calm, 0.004 starts to be wobbly
 
 float minSpeed = 0.001;
 float currSpeed= 0;

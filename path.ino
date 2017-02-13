@@ -29,7 +29,7 @@ boolean loopPath()
   {
     pathWorking = false;  // done all our work, will never run again
     
-    logSummary();
+    //logSummary();
     return false;
   }
   
@@ -79,8 +79,8 @@ boolean addPoint( int x, int y )  // in range -127-127
     return false;
     
    
-   points[numPoints].x = x+128;
-   points[numPoints].y = y+128;
+   points[numPoints].x = x;
+   points[numPoints].y = y;
    
    numPoints ++;
    return true;

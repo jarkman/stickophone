@@ -58,27 +58,37 @@ boolean wasOff = false;
 void loop() 
 { 
 
-  int newGesture = checkForEvents();
+  int newGesture = checkForEvents(); // change this function so it delivers a gesture number when the person on the call want to perform a gesture
   
   boolean done = ! loopPath();
 
    if( newGesture != -1 )
    {
-      startGesture(newGesture);
+      // Serial.println("a");
+      startGesture(newGesture);  // something kicked off a new gesture, we'll just do it once then go back to repeating GESTURE_SOMEBODY_HOME
    }
    else if( done )
    { 
       // finished a thing, go to a neutral gesture
       if( someoneIsHome )
+      {
+          Serial.println("nobody home");
         startGesture(GESTURE_NOBODY_HOME);
+      }
       else
+      {
+        
+          Serial.println("soembody home");
         startGesture(GESTURE_SOMEBODY_HOME);
+      }
    }
+   // else just keep running the current motion
       
    loopMotion();   
 }
 
 
+int eventGesture = GESTURE_WANT_TO_SPEAK - 1;
 
 int checkForEvents()
 {
@@ -90,25 +100,23 @@ int checkForEvents()
   {
     eventStartMillis = now;
 
-    if( ! someoneIsHome )
-    {
-      someoneIsHome = true;
-      return -1;
-    }
+    eventGesture = eventGesture + 1;
+    
+    if( eventGesture > GESTURE_HELLO )
+      eventGesture = GESTURE_WANT_TO_SPEAK;
+    
+    
+       #ifdef DO_LOGGING
+         Serial.print ("next gesture ");
+         Serial.println (eventGesture);
+      #endif
+      return eventGesture;
+    
 
-    int newGesture = currentGesture + 1;
-    if( newGesture <= GESTURE_HELLO )
-    {
-      return newGesture;
-    }
-    else
-    {
-      someoneIsHome = false;
-      return -1;
-    }
     
   }
 
+  return -1;
 }
 
 
