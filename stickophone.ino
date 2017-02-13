@@ -17,12 +17,22 @@ float num_servo_speed = 1.0;
 
 void moveTo( float x0, float y0, boolean s = true );
 boolean addPoint( int x, int y );
+void setSpeed(float ratio);
 
 #define GESTURE_NOBODY_HOME 0
 #define GESTURE_SOMEBODY_HOME 1
 #define GESTURE_WANT_TO_SPEAK 2
 #define GESTURE_OI 3
 #define GESTURE_HELLO 4
+#define GESTURE_LEAVING 5
+#define GESTURE_BORED 6
+#define GESTURE_INTERESTED 7
+#define GESTURE_LOOKING_ROUND 8
+
+
+
+
+#define GESTURE_LAST GESTURE_LOOKING_ROUND
 
 int currentGesture = -1;
 boolean someoneIsHome = false;
@@ -102,7 +112,7 @@ int checkForEvents()
 
     eventGesture = eventGesture + 1;
     
-    if( eventGesture > GESTURE_HELLO )
+    if( eventGesture > GESTURE_LAST )
       eventGesture = GESTURE_WANT_TO_SPEAK;
     
     

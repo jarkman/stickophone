@@ -17,8 +17,11 @@ float targetY = 0;
 
 boolean stopAtEnd = true;
 
-float maxSpeed = 0.050; // mm / millisec - 0.600 is good
-float acceleration = 0.001; // mm / millisec / millisec - 0.002 keeps the current rig pretty calm, 0.004 starts to be wobbly
+float baseMaxSpeed = 0.050; // mm / millisec - 0.600 is good
+float baseAcceleration = 0.001; // mm / millisec / millisec - 0.002 keeps the current rig pretty calm, 0.004 starts to be wobbly
+
+float maxSpeed;
+float acceleration;
 
 float minSpeed = 0.001;
 float currSpeed= 0;
@@ -30,6 +33,7 @@ int  totalMillis  =0;
 
 void setupMotion()
 {
+  setSpeed(1.0);
   currX = 0;
   currY = 0;
 
@@ -41,6 +45,12 @@ void setupMotion()
 
  
   motionWorking = false;
+}
+
+void setSpeed(float ratio)
+{
+  maxSpeed = ratio * baseMaxSpeed;
+  acceleration = ratio * baseAcceleration;
 }
 
 boolean loopMotion() // move one increment towards targetXYZ at constant speed
