@@ -45,7 +45,7 @@ void setup()
   
   
   #ifdef DO_LOGGING
-  Serial.begin (9600); // for debugging
+  Serial.begin (57600); // for debugging
 
   Serial.print ("setup\n");
   #endif
@@ -99,11 +99,28 @@ void loop()
 
 
 int eventGesture = GESTURE_WANT_TO_SPEAK - 1;
+int command;
 
 int checkForEvents()
 {
   // see if something happened that mean we ought to start a gesture, for now just use a timer
 
+   while(Serial.available() > 0)
+    {
+        command = Serial.parseInt();
+        Serial.println(command);
+        if (Serial.read() == '\n') { //note need to set "newline" on console
+          Serial.print("gesture found  ");
+          Serial.println(command);
+          eventGesture = command;
+          return eventGesture;
+        }else{
+
+          Serial.println("no newline found");
+        }
+    }
+
+/*
   long now = millis();
 
   if( now - eventStartMillis > 10000 )  // run through the gesture, one every 10 secs
@@ -125,7 +142,7 @@ int checkForEvents()
 
     
   }
-
+*/
   return -1;
 }
 

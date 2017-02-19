@@ -35,8 +35,8 @@ void setupPosition()
   turnOnServos();
    
   
-   servoWriteCalibrated( &s0, 0 );
-   servoWriteCalibrated( &s1, 0 );
+   //servoWriteCalibrated( &s0, 90 );
+   //servoWriteCalibrated( &s1, 90 );
    
    delay(2000); 
    
