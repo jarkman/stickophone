@@ -1,10 +1,19 @@
 //#include <NewSoftSerial.h>
 
-
 #include <Servo.h> 
- 
+#include <AccelStepper.h>
+
+#define HALFSTEP 8
+
+// Motor pin definitions
+#define motorPin1  2     // IN1 on the ULN2003 driver 1
+#define motorPin2  3     // IN2 on the ULN2003 driver 1
+#define motorPin3  4     // IN3 on the ULN2003 driver 1
+#define motorPin4  5     // IN4 on the ULN2003 driver 1
+
 #define  DO_LOGGING
 
+AccelStepper stepper1(HALFSTEP, motorPin1, motorPin3, motorPin2, motorPin4);
 
 int numPoints = 0;
 boolean pathWorking = true;
@@ -28,7 +37,8 @@ void setSpeed(float ratio);
 #define GESTURE_BORED 6
 #define GESTURE_INTERESTED 7
 #define GESTURE_LOOKING_ROUND 8
-
+#define GESTURE_REVOLVE_ALL_LEFT 22
+#define GESTURE_REVOLVE_ALL_RIGHT 23
 
 
 
@@ -49,6 +59,10 @@ void setup()
 
   Serial.print ("setup\n");
   #endif
+
+  stepper1.setMaxSpeed(800.0);
+  stepper1.setAcceleration(100.0);
+  stepper1.setSpeed(200);
 
   setupPosition();
   setupMotion();
@@ -95,7 +109,8 @@ void loop()
    }
    // else just keep running the current motion
       
-   loopMotion();   
+   loopMotion();
+   stepper1.run();   
 }
 
 

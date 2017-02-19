@@ -138,6 +138,16 @@ void startGesture( int gesture )
      addPoint(60,0);
      break;
 
+  case GESTURE_REVOLVE_ALL_LEFT:
+     Serial.println ("GESTURE_REVOLVE_ALL_LEFT");
+     stepper1.moveTo(-200);
+     break;
+
+  case GESTURE_REVOLVE_ALL_RIGHT:
+     Serial.println ("GESTURE_REVOLVE_ALL_RIgGHT");
+     stepper1.moveTo(200);
+     break;
+
    default:
      #ifdef DO_LOGGING
       Serial.print ("bad gesture ");
