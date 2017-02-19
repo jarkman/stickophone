@@ -74,22 +74,23 @@ void loop()
 
    if( newGesture != -1 )
    {
-      // Serial.println("a");
       startGesture(newGesture);  // something kicked off a new gesture, we'll just do it once then go back to repeating GESTURE_SOMEBODY_HOME
    }
    else if( done )
    { 
+      Serial.println("someoneIsHome");
+      Serial.println(someoneIsHome);
+
       // finished a thing, go to a neutral gesture
-      if( someoneIsHome )
+      if( someoneIsHome == false )
       {
           Serial.println("nobody home");
-        startGesture(GESTURE_NOBODY_HOME);
+          startGesture(GESTURE_NOBODY_HOME);        
       }
       else
       {
-        
-          Serial.println("soembody home");
-        startGesture(GESTURE_SOMEBODY_HOME);
+          Serial.println("somebody home");
+          startGesture(GESTURE_SOMEBODY_HOME);
       }
    }
    // else just keep running the current motion
@@ -115,7 +116,6 @@ int checkForEvents()
           eventGesture = command;
           return eventGesture;
         }else{
-
           Serial.println("no newline found");
         }
     }

@@ -23,6 +23,7 @@ void startGesture( int gesture )
       addPoint(0,-30);
       addPoint(0,-31);
       addPoint(0,-29);
+      someoneIsHome = false;
 
       break;
       
@@ -38,6 +39,7 @@ void startGesture( int gesture )
       addPoint(0,0);
       addPoint(-10,5);
       addPoint(-10,-5);
+      someoneIsHome = true;
 
       break;
       
