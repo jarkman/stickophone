@@ -15,7 +15,6 @@ float paperDelta = 0;
 float targetX = 0;
 float targetY = 0;
 
-boolean stopAtEnd = true;
 
 float baseMaxSpeed = 0.050; // mm / millisec - 0.600 is good
 float baseAcceleration = 0.001; // mm / millisec / millisec - 0.002 keeps the current rig pretty calm, 0.004 starts to be wobbly
@@ -26,6 +25,7 @@ float acceleration;
 float minSpeed = 0.001;
 float currSpeed= 0;
 
+boolean stopAtEnd = true;
 
 float totalDistance = 0;
 int  totalSteps =0; 

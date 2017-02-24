@@ -39,13 +39,16 @@ void setSpeed(float ratio);
 #define GESTURE_LOOKING_ROUND 8
 #define GESTURE_REVOLVE_ALL_LEFT 22
 #define GESTURE_REVOLVE_ALL_RIGHT 23
-
+#define GESTURE_STAY_BORED 24
 
 
 #define GESTURE_LAST GESTURE_LOOKING_ROUND
 
+//libby
+int delayMotion = 0;
+
 int currentGesture = -1;
-boolean someoneIsHome = false;
+int someoneIsHome = 0;
 long gestureStartMillis = 0;
 long eventStartMillis = 0;
 
@@ -89,22 +92,28 @@ void loop()
    if( newGesture != -1 )
    {
       startGesture(newGesture);  // something kicked off a new gesture, we'll just do it once then go back to repeating GESTURE_SOMEBODY_HOME
+      delayMotion = 0;
    }
    else if( done )
    { 
-      Serial.println("someoneIsHome");
-      Serial.println(someoneIsHome);
 
       // finished a thing, go to a neutral gesture
-      if( someoneIsHome == false )
-      {
-          Serial.println("nobody home");
-          startGesture(GESTURE_NOBODY_HOME);        
-      }
-      else
+      if( someoneIsHome == 1 )
       {
           Serial.println("somebody home");
-          startGesture(GESTURE_SOMEBODY_HOME);
+          startGesture(GESTURE_SOMEBODY_HOME); 
+          delayMotion = (int)random(10);       
+      }
+      else if( someoneIsHome == 2 )
+      {
+          Serial.println("bored");
+          startGesture(GESTURE_STAY_BORED);
+          delayMotion = (int)random(10);       
+
+      } 
+      else{
+          Serial.println("nobody home");
+          startGesture(GESTURE_NOBODY_HOME);  
       }
    }
    // else just keep running the current motion

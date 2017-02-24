@@ -7,7 +7,9 @@ struct point
 {
   int x,y; // in degrees, 0 is vertical, range is -90 to +90
 };
-#define MAX_POINTS 32
+#define MAX_POINTS 100
+//#define MAX_POINTS 32
+
 struct point points[ MAX_POINTS ];
 
 int nextPoint = -1;
@@ -46,7 +48,7 @@ boolean loopPath()
  
   
   moveTo( points[nextPoint].x, points[nextPoint].y, stopAtEnd);
-  
+
   pathWorking = true;
   return true;
     

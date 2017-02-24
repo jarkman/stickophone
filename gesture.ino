@@ -23,7 +23,7 @@ void startGesture( int gesture )
       addPoint(0,-30);
       addPoint(0,-31);
       addPoint(0,-29);
-      someoneIsHome = false;
+      someoneIsHome = 0;
 
       break;
       
@@ -31,7 +31,28 @@ void startGesture( int gesture )
       // figure-8
       Serial.println ("GESTURE_SOMEBODY_HOME");
 
-      setSpeed(0.3);
+      setSpeed(0.1);
+
+      int r1;
+      r1 = (int)random(10);
+      for (int i = 0; i <= r1; i++){
+         long r2 = random(2);
+         long r3 = random(5);
+         addPoint(r2,r3);
+         if(delayMotion > 0){
+            for (int j = 0; j <= delayMotion; j++){
+               addPoint(r2,r3);
+            }
+         }         
+      }
+      someoneIsHome == 1;
+/*
+        addPoint(0,0);
+        addPoint(5,2);
+        addPoint(5,-2);
+        addPoint(0,0);
+        addPoint(-5,2);
+        addPoint(-5,-2);
       
       addPoint(0,0);
       addPoint(10,5);
@@ -39,15 +60,15 @@ void startGesture( int gesture )
       addPoint(0,0);
       addPoint(-10,5);
       addPoint(-10,-5);
-      someoneIsHome = true;
-
+*/
+      someoneIsHome = 1;
       break;
       
   case GESTURE_WANT_TO_SPEAK:
       Serial.println ("GESTURE_WANT_TO_SPEAK");
 
       setSpeed(1.5);
-      
+      someoneIsHome == 1;
       addPoint(0,30);
       addPoint(-30,30);
       addPoint(30,30);
@@ -61,7 +82,7 @@ void startGesture( int gesture )
       Serial.println ("GESTURE_OI");
 
       setSpeed(3.0);
-      
+      someoneIsHome == 1;
       addPoint(0,85);
       addPoint(0,70);
       addPoint(0,85);
@@ -73,7 +94,7 @@ void startGesture( int gesture )
      Serial.println ("GESTURE_HELLO");
 
      setSpeed(1.0);
-     
+     someoneIsHome == 1;
      addPoint(0,20);
      addPoint(20,20);
      addPoint(-20,20);
@@ -95,22 +116,48 @@ void startGesture( int gesture )
      addPoint(20,-20);
      addPoint(-20,-20);
      addPoint(0,-20);
+      someoneIsHome = 0;
 
       break;
       
   case GESTURE_BORED:
      Serial.println ("GESTURE_BORED");
 
-     setSpeed(0.5);
+     setSpeed(0.1);
 
-     
-     addPoint(0,-20);
-     addPoint(0,-5);
-     addPoint(0,-30);
      addPoint(0,-10);
-     addPoint(0,-30);
      addPoint(0,-5);
-     
+     addPoint(0,-30);
+//     addPoint(0,-10);
+  //   addPoint(0,-30);
+     //addPoint(0,-5);
+     someoneIsHome = 2;
+  
+     break;
+
+  case GESTURE_STAY_BORED:
+     Serial.println ("GESTURE_STAY_BORED");
+
+     setSpeed(0.1);
+
+      if(delayMotion > 0){
+         delay(delayMotion);
+      }
+
+      int r4;
+      r4 = (int)random(3);
+      for (int i = 0; i <= r4; i++){
+         long r5 = random(24,30);
+         addPoint(0,-r5);
+         if(delayMotion > 0){
+            for (int j = 0; j <= delayMotion; j++){
+               addPoint(0,-r5);
+            }
+         } 
+      }
+
+     someoneIsHome = 2;
+  
      break;
       
   case GESTURE_INTERESTED:
@@ -118,7 +165,7 @@ void startGesture( int gesture )
 
      setSpeed(1.5);
 
-     
+     someoneIsHome == 1;
      addPoint(0,30);
      addPoint(0,-5);
      
@@ -136,16 +183,18 @@ void startGesture( int gesture )
      addPoint(-60,40);
      addPoint(60,40);
      addPoint(60,0);
+     someoneIsHome == 1;
      break;
 
   case GESTURE_REVOLVE_ALL_LEFT:
      Serial.println ("GESTURE_REVOLVE_ALL_LEFT");
-     stepper1.moveTo(-200);
+     //stepper1.moveTo(-200);
+     stepper1.moveTo(stepper1.currentPosition() - 200);
      break;
 
   case GESTURE_REVOLVE_ALL_RIGHT:
-     Serial.println ("GESTURE_REVOLVE_ALL_RIgGHT");
-     stepper1.moveTo(200);
+     Serial.println ("GESTURE_REVOLVE_ALL_RIGHT");
+     stepper1.moveTo(stepper1.currentPosition() + 200);
      break;
 
    default:
